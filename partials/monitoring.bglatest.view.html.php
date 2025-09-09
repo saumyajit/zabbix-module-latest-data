@@ -155,7 +155,10 @@ foreach ($data['items'] as $itemid => $item) {
 
 	if ($last_history) {
 		$prev_history = (count($data['history'][$itemid]) > 1) ? $data['history'][$itemid][1] : null;
-		$last_check = zbx_date2str(DATE_TIME_FORMAT_SECONDS, $last_history['clock']);
+		//$last_check = zbx_date2str(DATE_TIME_FORMAT_SECONDS, $last_history['clock']);
+		$last_check = (new CSpan(zbx_date2age($last_history['clock'])))
+   			 ->addClass(ZBX_STYLE_CURSOR_POINTER)
+  			  ->setHint(zbx_date2str(DATE_TIME_FORMAT_SECONDS, $last_history['clock']), '', true, '', 0);
 		$last_value = formatHistoryValue($last_history['value'], $item, false);
 		$change = '';
 
